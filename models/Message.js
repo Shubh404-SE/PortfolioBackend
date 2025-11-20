@@ -1,12 +1,21 @@
 import mongoose from "mongoose";
 
-const messageSchema = new mongoose.Schema(
+const contactSchema = new mongoose.Schema(
   {
-    name: String,
-    email: String,
-    message: String,
+    name: {
+      type: String,
+      required: [true, "Name is required"],
+    },
+    email: {
+      type: String,
+      required: [true, "Email is required"],
+    },
+    message: {
+      type: String,
+      required: [true, "Message cannot be empty"],
+    }
   },
   { timestamps: true }
 );
 
-export default mongoose.model("Message", messageSchema);
+export default mongoose.model("Contact", contactSchema);
