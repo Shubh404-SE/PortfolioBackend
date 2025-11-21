@@ -14,10 +14,6 @@ const skillSchema = new mongoose.Schema(
       min: [0, "Minimum value is 0"],
       max: [100, "Maximum value is 100"],
     },
-    icon: {
-      type: String,
-      required: [true, "Icon is required"],
-    },
   },
   { timestamps: true }
 );

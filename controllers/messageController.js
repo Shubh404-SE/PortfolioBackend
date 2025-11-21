@@ -30,3 +30,17 @@ export const getAllMessages = async (req, res) => {
     res.status(500).json({ message: "Internal Server Error" });
   }
 };
+
+export const deleteMessage = async (req, res) => {
+  const { id } = req.params;
+
+  const message = await Contact.findById(id);
+
+  if (!message) {
+    return res.status(404).json({ message: "Message not found" });
+  }
+
+  await message.deleteOne();
+
+  res.json({ message: "Message deleted successfully" });
+};

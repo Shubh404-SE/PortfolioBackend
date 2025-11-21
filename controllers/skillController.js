@@ -7,29 +7,28 @@ export const getSkills = asyncHandler(async (req, res) => {
 });
 
 export const addSkill = asyncHandler(async (req, res) => {
-  const { language, percentage, icon } = req.body;
+  const { language, percentage } = req.body;
 
-  if (!language || !percentage || !icon)
+  if (!language || !percentage)
     return res.status(400).json({ message: "All fields are required" });
 
   const existing = await Skill.findOne({ language });
   if (existing) return res.status(400).json({ message: "Skill already exists" });
 
-  const skill = await Skill.create({ language, percentage, icon });
+  const skill = await Skill.create({ language, percentage });
   res.status(201).json(skill);
 });
 
 
 export const updateSkill = asyncHandler(async (req, res) => {
   const { id } = req.params;
-  const { language, percentage, icon } = req.body;
+  const { language, percentage } = req.body;
 
   const skill = await Skill.findById(id);
   if (!skill) return res.status(404).json({ message: "Skill not found" });
 
   skill.language = language || skill.language;
   skill.percentage = percentage || skill.percentage;
-  skill.icon = icon || skill.icon;
 
   const updatedSkill = await skill.save();
   res.json(updatedSkill);
